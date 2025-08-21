@@ -11,8 +11,4 @@
     <Compile Remove="연산자 오버로딩.cs" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="연산자 오버로딩.cs" />
-  </ItemGroup>
-
 </Project>
