@@ -6,19 +6,20 @@ public class Map
     public int length;
     public int score;
 
-    public Rectangle ActiveMap;
-    public Map(int width, int length)
+    int[,] map;
+    private enum MapInfo { Snake, Item, Wall, Blank }
+
+    private MapInfo[,] mapInfos;
+
+    public Map(int w, int l)
     {
-        DrawMap(width, length);
+        map = new int[w, l];
+        this.width = map.Length / l;
+        this.length = map.Length / w;
+        DrawMap();
     }
-
-    public void DrawMap(int width, int length)
+    public void DrawMap()
     {
-        this.width = width;
-        this.length = length;
-
-        ActiveMap = new Rectangle(0, 0, width - 2, length - 2);
-
         for (int k = 0; k < length; k++)
         {
             if (k == 0 || k == length - 1)
@@ -28,10 +29,12 @@ public class Map
                     if (i == 0 || i == width - 1)
                     {
                         Console.Write("+");
+                        mapInfos[k, i] = MapInfo.Wall;
                     }
                     else
                     {
                         Console.Write("-");
+                        mapInfos[k, i] = MapInfo.Wall;
                     }
                 }
             }
@@ -42,9 +45,11 @@ public class Map
                     if (i == 0 || i == width - 1)
                     {
                         Console.Write("|");
+                        mapInfos[k, i] = MapInfo.Wall;
                     }
                     else
                         Console.Write(" ");
+                    mapInfos[k, i] = MapInfo.Blank;
                 }
             }
             Console.WriteLine();

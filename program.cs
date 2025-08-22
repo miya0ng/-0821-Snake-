@@ -12,5 +12,3 @@ if (keyInfo.Key == ConsoleKey.Spacebar)
     Snake snake = new Snake();
     snake.Init();
 }
-
-
