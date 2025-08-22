@@ -29,12 +29,12 @@ public class Map
                     if (i == 0 || i == width - 1)
                     {
                         Console.Write("+");
-                        mapInfos[k, i] = MapInfo.Wall;
+                       // mapInfos[k, i] = MapInfo.Wall;
                     }
                     else
                     {
                         Console.Write("-");
-                        mapInfos[k, i] = MapInfo.Wall;
+                        //mapInfos[k, i] = MapInfo.Wall;
                     }
                 }
             }
@@ -45,11 +45,11 @@ public class Map
                     if (i == 0 || i == width - 1)
                     {
                         Console.Write("|");
-                        mapInfos[k, i] = MapInfo.Wall;
+                        //mapInfos[k, i] = MapInfo.Wall;
                     }
                     else
                         Console.Write(" ");
-                    mapInfos[k, i] = MapInfo.Blank;
+                    //mapInfos[k, i] = MapInfo.Blank;
                 }
             }
             Console.WriteLine();
