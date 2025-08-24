@@ -1,59 +1,85 @@
 ﻿using System.Drawing;
+using System.Runtime.CompilerServices;
 
 public class Map
 {
-    public int width;
-    public int length;
+    public static Map? Instance { get; private set; }
+
+    public int row;
+    public int col;
     public int score;
 
-    int[,] map;
-    private enum MapInfo { Snake, Item, Wall, Blank }
+    public char[,] map;
+    public enum MapInfo { Snake, Item, Wall, Blank }
 
-    private MapInfo[,] mapInfos;
+    public static MapInfo[,]? mapInfos;
 
-    public Map(int w, int l)
+    public bool isGameOver = false;
+    public Map(int c, int r)
     {
-        map = new int[w, l];
-        this.width = map.Length / l;
-        this.length = map.Length / w;
+        Instance = this;
+        map = new char[r, c];
+       
+        this.col = map.GetLength(1);
+        this.row = map.GetLength(0);
+        mapInfos = new MapInfo[row, col];
         DrawMap();
     }
     public void DrawMap()
     {
-        for (int k = 0; k < length; k++)
+        for (int y = 0; y < row; y++)
         {
-            if (k == 0 || k == length - 1)
+            if (y == 0 || y == row - 1)
             {
-                for (int i = 0; i < width; i++)
+                for (int x = 0; x < col; x++)
                 {
-                    if (i == 0 || i == width - 1)
+                    if (x == 0 || x == col - 1)
                     {
+                        map[y, x] = '+';
+                        mapInfos[y, x] = MapInfo.Wall;
+                      
                         Console.Write("+");
-                       // mapInfos[k, i] = MapInfo.Wall;
                     }
                     else
                     {
+                        map[y, x] = '-';
+                      
                         Console.Write("-");
-                        //mapInfos[k, i] = MapInfo.Wall;
+                        mapInfos[y, x] = MapInfo.Wall;
                     }
                 }
             }
             else
             {
-                for (int i = 0; i < width; i++)
+                for (int x = 0; x < col; x++)
                 {
-                    if (i == 0 || i == width - 1)
+                    if (x == 0 || x == col - 1)
                     {
+                        map[y, x] = '|';
+                        
                         Console.Write("|");
-                        //mapInfos[k, i] = MapInfo.Wall;
+                        mapInfos[y, x] = MapInfo.Wall;
                     }
                     else
+                    {
+                        map[y, x] = ' ';
+                        
                         Console.Write(" ");
-                    //mapInfos[k, i] = MapInfo.Blank;
+                        mapInfos[y, x] = MapInfo.Blank;
+                    }
                 }
             }
             Console.WriteLine();
         }
-        Console.WriteLine($"점수: {score}");
+    }
+
+    public void AddScore(int amount)
+    {
+        score += amount;
+    }
+
+    public void ResetScore()
+    {
+        score = 0;
     }
 }
